@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import ListPage from './components/ListPage';
+import CreateBookPage from './components/CreateBookPage';
+import BookDetailPage from './components/BookDetailPage';
+import NotFoundPage from './components/NotFoundPage';
+import { Provider } from 'react-redux';
+import store from './components/store';
+import './index.css';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <Router>
+        <div className="container">
+          <h1>Book Library</h1>
+          <Routes>
+            <Route path="/" element={<ListPage />} />
+            <Route path="/create" element={<CreateBookPage />} />
+            <Route path="/books/:id" element={<BookDetailPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </div>
+      </Router>
+    </Provider>
   );
-}
+};
 
 export default App;
